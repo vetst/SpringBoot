@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Обновить пользователя</h2><br>
+<center>
+    <form action="/logout" method="GET">
+        <input type="submit" value="Logout"/>
+    </form>
+</center>
+<form action="update" method="POST">
+    <input type="hidden" name="id" th:value="${id}">
+    <p><input type="text" th:value="${name}" name="name" th:placeholder="#{name}" required></p>
+    <p><input type="text" th:value="${surName}" name="surName" th:placeholder="#{surName}" required></p>
+    <p><input type="text" th:value="${password}" name="password" th:placeholder="#{password}" required></p>
+    <input type="submit" th:value="Обновить"/></form>
+</body>
+</html>

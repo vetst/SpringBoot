@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 th:text=" 'Welcome ' + ${user.name} + '!'"></h2><br>
+<center>
+    <form action="/logout" method="GET">
+        <input type="submit" value="Logout"/>
+    </form>
+</center>
+</body>
+</html>
