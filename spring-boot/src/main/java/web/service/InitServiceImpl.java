@@ -15,10 +15,12 @@ import java.util.Set;
 public class InitServiceImpl implements InitService {
 
     private UserDao userDao;
+    private final UserService userService;
 
     @Autowired
-    public InitServiceImpl(UserDao userDao) {
+    public InitServiceImpl(UserDao userDao, UserService userService) {
         this.userDao = userDao;
+        this.userService = userService;
     }
 
     @Transactional
@@ -28,11 +30,11 @@ public class InitServiceImpl implements InitService {
             Set<Role> admin = new HashSet<>();
             admin.add(new Role("admin"));
             admin.add(new Role("user"));
-            userDao.addUser(new User("admin", "admin", admin));
+            userService.addUser(new User("admin", "admin", admin));
 
             Set<Role> user = new HashSet<>();
             user.add(new Role("user"));
-            userDao.addUser(new User("user", "user", user));
+            userService.addUser(new User("user", "user", user));
         }
     }
 }

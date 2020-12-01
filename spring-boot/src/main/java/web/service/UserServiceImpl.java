@@ -3,31 +3,37 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
-import web.model.Role;
 import web.model.User;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public UserServiceImpl() {
+    }
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     @Override
     public boolean addUser(User user) {
-        if (user.getName() != null && user.getSurName() != null) {
+
+        if (user.getName() != null) {
+            String encode = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encode);
             userDao.addUser(user);
             return true;
         }
